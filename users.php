@@ -26,4 +26,4 @@ if ($user_id != USER_ID) {
 // All check is OK.
 // You need to delete the code in the database. Or set it to "used" so it can not be used again.
 
-die(json_encode(['user' => ['id' => USER_ID, 'email' => USERNAME, 'first_name' => FIRST_NAME, 'last_name' => LAST_NAME, 'name' => DISPLAY_NAME]]));
+die(json_encode(['id' => USER_ID, 'email' => USERNAME, 'first_name' => FIRST_NAME, 'last_name' => LAST_NAME, 'name' => DISPLAY_NAME]));
