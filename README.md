@@ -16,4 +16,5 @@ CLIENT_ID = `2e838f2f2652dab5c976381d58463ba6`
 
 CLIENT_SECRET = `062a2c8e0e79a247143443b2de98ccacee4a24fc`
 
-Live demo: `https://signonify-demo.myshopify.com/account/login`
+Live demo: [https://signonify-demo.myshopify.com/account/login](https://signonify-demo.myshopify.com/account/login)
+Password: `111`
