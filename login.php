@@ -9,6 +9,7 @@ $queries = $_SERVER['QUERY_STRING'];
 
 $client_id = $_GET['client_id'];
 $redirect_url = $_GET['redirect_url'];
+$state = isset($_GET['state']) ? $_GET['state']: null;
 $error = null;
 
 if ($client_id !== CLIENT_ID) {
@@ -37,7 +38,7 @@ if (isset($_POST['submit'])) {
         $result = $conn->exec($sql);
 
         // $code = ONETIME_CODE;
-        header("Location: ".$redirect_url.'?code='.$code);
+        header("Location: ".$redirect_url.'?code='.$code .'&state='.$state);
         exit();
     }
 }
