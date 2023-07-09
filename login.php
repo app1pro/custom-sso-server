@@ -1,6 +1,11 @@
 <?php
 
-require __DIR__ . '/config.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/database.php';
+
+global $conn;
+
+$queries = $_SERVER['QUERY_STRING'];
 
 $client_id = $_GET['client_id'];
 $redirect_url = $_GET['redirect_url'];
@@ -18,11 +23,20 @@ if (isset($_POST['submit'])) {
     $username = $_POST['email'];
     $password = $_POST['password'];
 
-    if ($username !== USERNAME || $password !== PASSWORD) {
+    $sql = 'SELECT * FROM users WHERE email = "'.$username.'" AND password = "'.$password.'"';
+    $result = $conn->query($sql);
+
+    if (!$result || $result->rowCount() == 0) {
         $error = 'Email or password is incorrect!';
     } else {
         // generate a $code. redirect_url?code=$code.
-        $code = ONETIME_CODE;
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+
+        $code = md5(microtime());
+        $sql = "INSERT INTO onetime (code, client_id, user_id) VALUES ('$code', '$client_id', ".$row['id'].")";
+        $result = $conn->exec($sql);
+
+        // $code = ONETIME_CODE;
         header("Location: ".$redirect_url.'?code='.$code);
         exit();
     }
@@ -40,6 +54,7 @@ if (isset($_POST['submit'])) {
 <main class="form-signin w-50 m-auto">
     <div class="card shadow-md">
         <div class="card-body">
+            <h3>Login</h3>
             <!-- Login Form -->
             <form method="POST">
                 <input type="text" class="form-control mb-4" name="email" placeholder="email (<?= USERNAME ?>)">
@@ -50,6 +65,7 @@ if (isset($_POST['submit'])) {
                 <?php endif ?>
             </form>
 
+            <div class="mt-3"><a href="./register.php?<?= $queries ?>">Register</a></div>
         </div>
     </div>
 </main>
