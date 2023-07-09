@@ -57,8 +57,8 @@ if (isset($_POST['submit'])) {
             <h3>Login</h3>
             <!-- Login Form -->
             <form method="POST">
-                <input type="text" class="form-control mb-4" name="email" placeholder="email (<?= USERNAME ?>)">
-                <input type="text" class="form-control mb-4" name="password" placeholder="password (<?= PASSWORD ?>)">
+                <input type="text" class="form-control mb-4" name="email" placeholder="email (demo@demo.com)">
+                <input type="text" class="form-control mb-4" name="password" placeholder="password (demodemo)">
                 <input type="submit" name="submit" class="btn btn-primary" value="Log In">
                 <?php if (!empty($error)): ?>
                     <div class="alert alert-danger"><?= $error ?></div>
