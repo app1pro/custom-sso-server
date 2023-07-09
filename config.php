@@ -9,6 +9,6 @@ define('ALLOWED_REDIRECT_URLS', 'https://signonify.com/openid/custom-sso, http:/
 define('HOST', 'localhost');
 define('DB_NAME', 'custom_sso_server');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'matkhau');
+define('DB_PASSWORD', 'password');
 
 
