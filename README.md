@@ -1,7 +1,7 @@
 # custom-sso-server
 # An example of custom SSO server side for Signonify app / Shopify.
 
-Enviroinment: PHP, no database.
+Enviroinment: PHP, MySQL database.
 
 How to use:
 Git clone the project into your computer.
