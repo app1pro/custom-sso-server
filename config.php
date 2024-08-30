@@ -1,5 +1,6 @@
 <?php
 
+define('CLIENT_BRAND_NAME', 'Signonify.com');
 define('CLIENT_ID', '2e838f2f2652dab5c976381d58463ba6');
 define('CLIENT_SECRET', '062a2c8e0e79a247143443b2de98ccacee4a24fc');
 

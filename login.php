@@ -1,30 +1,26 @@
 <?php
 
+// Start the session
+session_start();
+
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/database.php';
 
 global $conn;
-
 $queries = $_SERVER['QUERY_STRING'];
 
-$client_id = $_GET['client_id'];
-$redirect_url = $_GET['redirect_url'];
-$state = isset($_GET['state']) ? $_GET['state']: null;
+$redirect_url = isset($_GET['redirect_url']) ? $_GET['redirect_url'] : null;
 $error = null;
 
-if ($client_id !== CLIENT_ID) {
-    die('Auth error! Client ID not valid!');
-}
-
-if (!in_array($redirect_url, array_map('trim', explode(',', ALLOWED_REDIRECT_URLS)))) {
-    die('Auth error! Redirect_url is not in whitelist!');
+if (!$redirect_url) {
+    $redirect_url = './auth.php';
 }
 
 if (isset($_POST['submit'])) {
     $username = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = 'SELECT * FROM users WHERE email = "'.$username.'" AND password = "'.$password.'"';
+    $sql = "SELECT * FROM users WHERE email = '".$username."' AND password = '".$password."'";
     $result = $conn->query($sql);
 
     if (!$result || $result->rowCount() == 0) {
@@ -32,13 +28,14 @@ if (isset($_POST['submit'])) {
     } else {
         // generate a $code. redirect_url?code=$code.
         $row = $result->fetch(PDO::FETCH_ASSOC);
+        $_SESSION["auth"] = $row;
 
-        $code = md5(microtime());
-        $sql = "INSERT INTO onetime (code, client_id, user_id) VALUES ('$code', '$client_id', ".$row['id'].")";
-        $result = $conn->exec($sql);
+        // $code = md5(microtime());
+        // $sql = "INSERT INTO onetime (code, client_id, user_id) VALUES ('$code', '$client_id', ".$row['id'].")";
+        // $result = $conn->exec($sql);
 
         // $code = ONETIME_CODE;
-        header("Location: ".$redirect_url.'?code='.$code .'&state='.$state);
+        header("Location: ".$redirect_url);
         exit();
     }
 }

@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
             $sql = "INSERT INTO users (email, password, first_name, last_name) VALUES ('$email', '$password', '$first_name', '$last_name');";
             $result = $conn->exec($sql);
 
-            $success = 'Created new account successfully!';
+            $success = 'Created new account successfully! Please click the Login button.';
         }
     }
 }
