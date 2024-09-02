@@ -12,7 +12,7 @@ $queries = $_SERVER['QUERY_STRING'];
 $auth_user = isset($_SESSION["auth"]) ? $_SESSION["auth"] : null;
 
 $client_id = isset($_GET['client_id']) ? $_GET['client_id'] : null;
-$redirect_url = isset($_GET['redirect_url']) ? $_GET['redirect_url'] : null;
+$redirect_uri = isset($_GET['redirect_uri']) ? $_GET['redirect_uri'] : null;
 $state = isset($_GET['state']) ? $_GET['state']: null;
 $error = null;
 
@@ -24,12 +24,12 @@ if ($client_id !== CLIENT_ID) {
     die('Auth error! Client ID not valid!');
 }
 
-if (!in_array($redirect_url, array_map('trim', explode(',', ALLOWED_REDIRECT_URLS)))) {
-    die('Auth error! Redirect_url is not in whitelist!');
+if (!in_array($redirect_uri, array_map('trim', explode(',', ALLOWED_REDIRECT_URLS)))) {
+    die('Auth error! Redirect_uri is not in whitelist!');
 }
 
 if (empty($auth_user)) {
-    header("Location: ./login.php?redirect_url=".urlencode($_SERVER['REQUEST_URI']));
+    header("Location: ./login.php?redirect_uri=".urlencode($_SERVER['REQUEST_URI']));
     exit();
 }
 
@@ -39,7 +39,7 @@ if (isset($_POST['allow'])) {
     $result = $conn->exec($sql);
 
     // $code = ONETIME_CODE;
-    header("Location: ".$redirect_url.'?code='.$code .'&state='.$state);
+    header("Location: ".$redirect_uri.'?code='.$code .'&state='.$state);
     exit();
 }
 
@@ -52,7 +52,7 @@ if (isset($_POST['allow'])) {
 </head>
 <body class="p-5 bg-body-tertiary">
 
-<main class="form-signin w-50 m-auto">
+<main class="form-signin w-50 mx-auto">
     <div class="card shadow-md">
         <div class="card-body">
             <h3>Auth</h3>

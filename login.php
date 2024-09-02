@@ -9,11 +9,11 @@ require_once __DIR__ . '/database.php';
 global $conn;
 $queries = $_SERVER['QUERY_STRING'];
 
-$redirect_url = isset($_GET['redirect_url']) ? $_GET['redirect_url'] : null;
+$redirect_uri = isset($_GET['redirect_uri']) ? $_GET['redirect_uri'] : null;
 $error = null;
 
-if (!$redirect_url) {
-    $redirect_url = './auth.php';
+if (!$redirect_uri) {
+    $redirect_uri = './auth.php';
 }
 
 if (isset($_POST['submit'])) {
@@ -26,7 +26,6 @@ if (isset($_POST['submit'])) {
     if (!$result || $result->rowCount() == 0) {
         $error = 'Email or password is incorrect!';
     } else {
-        // generate a $code. redirect_url?code=$code.
         $row = $result->fetch(PDO::FETCH_ASSOC);
         $_SESSION["auth"] = $row;
 
@@ -34,8 +33,7 @@ if (isset($_POST['submit'])) {
         // $sql = "INSERT INTO onetime (code, client_id, user_id) VALUES ('$code', '$client_id', ".$row['id'].")";
         // $result = $conn->exec($sql);
 
-        // $code = ONETIME_CODE;
-        header("Location: ".$redirect_url);
+        header("Location: ".$redirect_uri);
         exit();
     }
 }

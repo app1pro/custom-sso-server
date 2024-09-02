@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
         if ($result && $result->rowCount() > 0) {
             $error = 'Email is existed! Please use an other one.';
         } else {
-            // generate a $code. redirect_url?code=$code.
+            // generate a $code. redirect_uri?code=$code.
             $sql = "INSERT INTO users (email, password, first_name, last_name) VALUES ('$email', '$password', '$first_name', '$last_name');";
             $result = $conn->exec($sql);
 
