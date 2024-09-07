@@ -51,9 +51,9 @@ if (isset($_POST['allow'])) {
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
-<body class="bg-body-tertiary">
+<body class="bg-body-tertiary p-5">
 
-<main class="form-signin mx-auto p-5" style="max-width: 600px;">
+<main class="form-signin mx-auto" style="max-width: 600px;">
     <div class="card shadow-md">
         <div class="card-body">
             <h3>Authorize Application</h3>

@@ -13,7 +13,7 @@ $redirect_uri = isset($_GET['redirect_uri']) ? $_GET['redirect_uri'] : null;
 $error = null;
 
 if (!$redirect_uri) {
-    $redirect_uri = './auth.php';
+    $redirect_uri = './authorize.php';
 }
 
 if (isset($_POST['submit'])) {

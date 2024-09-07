@@ -5,7 +5,7 @@ require_once __DIR__ . '/database.php';
 
 global $conn;
 
-header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json');
 
 // echo '<pre>';
 // print_r($_SERVER);
@@ -18,7 +18,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION']) && preg_match('/Bearer\s(\S+)/', $_SER
 }
 
 if (!$access_token) {
-    http_response_code(401);
+    http_response_code(403);
     die(json_encode(['error' => 'Access Token is not found!']));
 }
 
@@ -26,7 +26,7 @@ $sql = 'SELECT * FROM client_tokens WHERE access_token = "'.$access_token.'"';
 $result = $conn->query($sql);
 
 if (!$result || $result->rowCount() == 0) {
-    http_response_code(401);
+    http_response_code(403);
     die(json_encode(['error' => 'Access Token is not valid!']));
 }
 
