@@ -50,19 +50,19 @@ if (isset($_POST['allow'])) {
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
-<body class="p-5 bg-body-tertiary">
+<body class="bg-body-tertiary">
 
-<main class="form-signin w-50 mx-auto">
+<main class="form-signin mx-auto p-5" style="max-width: 600px;">
     <div class="card shadow-md">
         <div class="card-body">
-            <h3>Auth</h3>
+            <h3>Authorize Application</h3>
             <div class="mb-4">Your account: <strong><?= $auth_user['email'] ?></strong> <a href="./logout.php">Logout</a></div>
             <!-- Login Form -->
             <form method="POST">
-                <label class="mb-3 d-block"><strong><?= CLIENT_BRAND_NAME ?></strong> want to connect to your account.</label>
+                <label class="mb-3 d-block"><strong><?= CLIENT_BRAND_NAME ?></strong> would like to connect to your account.</label>
                 <div class="mb-4 text-center">
                     <input type="submit" name="allow" class="btn btn-primary" value="Authorize Application">
-                    <input type="button" name="deny" class="btn btn-danger" value="Deny">
+                    <input type="button" name="deny" class="btn btn-light border-secondary" value="Deny">
                 </div>
 
                 <?php if (!empty($error)): ?>

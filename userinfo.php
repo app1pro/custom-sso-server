@@ -11,13 +11,23 @@ header('Content-Type: application/json; charset=utf-8');
 // print_r($_SERVER);
 // die;
 
-$access_token = $_POST['access_token'];
+// Get access token from the GET request.
+$access_token = null;
+if (isset($_SERVER['HTTP_AUTHORIZATION']) && preg_match('/Bearer\s(\S+)/', $_SERVER['HTTP_AUTHORIZATION'], $matches)) {
+    $access_token = $matches[1];
+}
+
+if (!$access_token) {
+    http_response_code(401);
+    die(json_encode(['error' => 'Access Token is not found!']));
+}
 
 $sql = 'SELECT * FROM client_tokens WHERE access_token = "'.$access_token.'"';
 $result = $conn->query($sql);
 
 if (!$result || $result->rowCount() == 0) {
-    die(json_encode(['error' => 'Access Token is not found.']));
+    http_response_code(401);
+    die(json_encode(['error' => 'Access Token is not valid!']));
 }
 
 $row = $result->fetch(PDO::FETCH_ASSOC);
@@ -26,7 +36,8 @@ $sql = 'SELECT * FROM users WHERE id = '.$row['user_id'].'';
 $result = $conn->query($sql);
 
 if (!$result || $result->rowCount() == 0) {
-    die(json_encode(['error' => 'User is not found.']));
+    http_response_code(404);
+    die(json_encode(['error' => 'User is not found!']));
 }
 
 $row = $result->fetch(PDO::FETCH_ASSOC);
