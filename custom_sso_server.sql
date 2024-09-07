@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `client_tokens` (
   `access_token` varchar(64) NOT NULL,
   `client_id` varchar(64) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -44,7 +45,8 @@ CREATE TABLE `onetime` (
   `client_id` varchar(64) NOT NULL,
   `user_id` int(11) NOT NULL,
   `used_on` datetime DEFAULT NULL,
-  `expire_on` datetime DEFAULT NULL
+  `expire_on` datetime DEFAULT NULL,
+  `created` datetime NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -58,7 +60,8 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(100) DEFAULT NULL,
   `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL
+  `last_name` varchar(50) NOT NULL,
+  `created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

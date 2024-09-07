@@ -33,7 +33,8 @@ if (isset($_POST['submit'])) {
             $error = 'Email is existed! Please use an other one.';
         } else {
             // generate a $code. redirect_uri?code=$code.
-            $sql = "INSERT INTO users (email, password, first_name, last_name) VALUES ('$email', '$password', '$first_name', '$last_name');";
+            $created = date('Y-m-d H:i:s');
+            $sql = "INSERT INTO users (email, password, first_name, last_name, created) VALUES ('$email', '$password', '$first_name', '$last_name', '$created');";
             $result = $conn->exec($sql);
 
             $success = 'Created new account successfully! Please click the Login button.';

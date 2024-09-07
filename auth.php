@@ -35,7 +35,8 @@ if (empty($auth_user)) {
 
 if (isset($_POST['allow'])) {
     $code = md5(microtime());
-    $sql = "INSERT INTO onetime (code, client_id, user_id) VALUES ('$code', '$client_id', ".$auth_user['id'].")";
+    $created = date('Y-m-d H:i:s');
+    $sql = "INSERT INTO onetime (code, client_id, user_id, created) VALUES ('$code', '$client_id', ".$auth_user['id'].", '$created')";
     $result = $conn->exec($sql);
 
     // $code = ONETIME_CODE;

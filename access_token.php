@@ -29,7 +29,8 @@ if (!$result || $result->rowCount() == 0) {
 $row = $result->fetch(PDO::FETCH_ASSOC);
 
 $access_token = md5(microtime());
-$sql = "INSERT INTO client_tokens (access_token, client_id, user_id) VALUES ('$access_token', '$client_id', ".$row['user_id'].")";
+$created = date('Y-m-d H:i:s');
+$sql = "INSERT INTO client_tokens (access_token, client_id, user_id, created) VALUES ('$access_token', '$client_id', ".$row['user_id'].", '$created')";
 $result = $conn->exec($sql);
 
 $sql = "UPDATE onetime SET used_on = '".date('Y-m-d H:i:s')."' WHERE code = '".$code."'";
